@@ -52,7 +52,6 @@ public class WeChat {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 
-                if(!Version.hasTimingIdentifier)return;
                 JSONObject json = (JSONObject)param.args[2];
                 //handle json
                 String newTimingIdentifier = json.optString("timingIdentifier");
@@ -105,17 +104,12 @@ public class WeChat {
 
                 String sendId = nativeUrl.getQueryParameter("sendid");
 
-                //XposedBridge.log("nativeUrlString: "+nativeUrlString);
                 nClass = callStaticMethod(findClass(Version.networkClass, Param.classLoader), Version.networkFunction);
                 abClass = findClass("com.tencent.mm.plugin.luckymoney.c.ab", Param.classLoader);
-                if(Version.hasTimingIdentifier){
-                    Class<?> aeClass = findClass("com.tencent.mm.plugin.luckymoney.c.ae", Param.classLoader);
-                    callMethod(nClass, "a", newInstance(aeClass, channelId, sendId, nativeUrlString, 0, "v1.0"), 0);
-                    msgList.add(new Tuple(msgType, channelId, sendId, nativeUrlString, field_talker));
-                }else{
-                    Object ab=newInstance(abClass, msgType, channelId, sendId, nativeUrlString, "", "\u0020", field_talker, "v1.0");
-                    callMethod(nClass, "a", ab, 0);
-                }
+
+                Class<?> aeClass = findClass(Version.attachMessageClass, Param.classLoader);
+                callMethod(nClass, "a", newInstance(aeClass, channelId, sendId, nativeUrlString, 0, "v1.0"), 0);
+                msgList.add(new Tuple(msgType, channelId, sendId, nativeUrlString, field_talker));
                 //call get lucky money function
                 //com.tencent.mm.u.n
             }

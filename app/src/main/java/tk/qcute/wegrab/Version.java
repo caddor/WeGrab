@@ -40,31 +40,27 @@ public class Version {
     public static String messageClass = "com.tencent.mm.e.b.by";
     public static String messageMethod = "b";
 
-    public static boolean hasTimingIdentifier = false;
     private static void setWeChatArgument(String version) {
         switch (version) {
-            case "6.5.3":
-                networkFunction = "vy";
-                networkClass = "com.tencent.mm.model.ak";
-                messageClass = "com.tencent.mm.e.b.bx";
-                break;
             case "6.5.4":
                 networkFunction = "vy";
                 networkClass = "com.tencent.mm.model.ak";
                 messageClass = "com.tencent.mm.e.b.by";
-                hasTimingIdentifier =true;
                 break;
             case "6.5.6":
                 networkFunction = "vM";
                 networkClass = "com.tencent.mm.model.al";
                 messageClass = "com.tencent.mm.e.b.by";
-                hasTimingIdentifier =true;
+                break;
+            case "6.5.7":
+                networkFunction = "vM";
+                networkClass = "com.tencent.mm.model.al";
+                messageClass = "com.tencent.mm.e.b.by";
                 break;
             default:
                 networkFunction = "vM";
                 networkClass = "com.tencent.mm.model.al";
                 messageClass = "com.tencent.mm.e.b.by";
-                hasTimingIdentifier =true;
         }
     }
 
